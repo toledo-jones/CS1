@@ -14,4 +14,3 @@ ACCOUNT_CMP_FREQ_2 = 12
 ACCOUNT_CMP_FREQ_3 = 365
 
 def amount_after_n_years(init_principal, acc_rate, acc_cmp_freq, years):
-    

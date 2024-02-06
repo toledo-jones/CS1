@@ -64,14 +64,21 @@ def get_years() -> int:
     # Keep prompting the user until we get a valid input
     while True:
 
-        # Initial prompt
-        years = int(input("Enter your investment amount: "))
-        if years > 0:
+        # I honestly don't know how to do this without try and except blocks
+        try:
+            years = int(input("Enter the number of years: "))
 
-            # Input is valid, return early
-            return years
+            # Years must be above zero and an integer
+            if years > 0:
 
-        # If we reach this point the input is invalid
+                # Input is valid, return early
+                return years
+
+        # ValueError will be thrown if the user enters a non whole number
+        except ValueError:
+            pass
+
+        # If we reach this point input is invalid
         print("Years must be a positive whole number - please reenter")
 
 

@@ -25,10 +25,9 @@ def is_correct(
         text: str,
         input_color: str,
         mode: str) -> bool:
-
-    def neither(bg_color, text_color, text, input_color):
-        if input_color != bg_color and input_color != text_color and input_color != text:
-            return input_color in COLORS
+    def neither(_bg_color, _text_color, _text, _input_color):
+        if _input_color != _bg_color and _input_color != _text_color and _input_color != _text:
+            return _input_color in COLORS
         return False
 
     mode_mapping = {'Background Color': input_color == bg_color,
@@ -37,7 +36,6 @@ def is_correct(
                     'Neither': neither(bg_color, text_color, text, input_color)}
 
     return mode_mapping.get(mode)
-
 
 
 assert is_correct('black', 'red', 'blue', 'blue', 'Background Color') == False

@@ -21,7 +21,7 @@ def make_field(content: any, length: int) -> str:
     content = str(content)
     if len(content) > length - 2:
         content = content[:length - 2]
-    return f"| {content.rjust(length)} |"
+    return f"|{content.rjust(length)} |"
 
 
 def make_line(length: int) -> str:
@@ -38,7 +38,9 @@ def display_population(population):
     print("| Day || Population |")
     print("+-----++------------+")
     for key in population.keys():
-        print(f"{make_field(key, 4)}{make_field(pretty_print_int(population[key]), 9)}")
+        if population[key] < 0:
+            population[key] = 0
+        print(f"{make_field(key, 4)}{make_field(pretty_print_int(population[key]), 11)}")
     print("+-----++------------+")
 
 

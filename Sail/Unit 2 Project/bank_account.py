@@ -1,6 +1,3 @@
-from math import e
-
-
 def compound_interest(
         init_principal,
         acc_rate,
@@ -19,8 +16,9 @@ def compound_at_frequency(principle, frequency, rate, years):
 
 
 def compound_continuously(principle, frequency, rate, years):
+    from math import e
     # a = pe^rt
-    return principle * e ** rate * years
+    return principle * e ** (rate * years)
 
 
 def simulate_account_balance(
@@ -30,11 +28,21 @@ def simulate_account_balance(
         setup_fee,
         years):
     principal = init_principal - setup_fee
+    if acc_cmp_freq == 0:
+        formula = compound_continuously
+    else:
+        formula = compound_at_frequency
+
     for year in range(1, years+1):
-        interest = principal * (1 + acc_rate / acc_cmp_freq)
-        principal += interest
+        new_principal = formula(principal, acc_cmp_freq, acc_rate, year)
         if year % 2 == 0 and year != 0:
-            print(f"{year} {principal}")
+            print(f"{year} {round(new_principal, 2)}")
 
 
-simulate_account_balance(10000.00, 0.025, 12, 25.00, 10)
+simulate_account_balance(592422.7803677524,
+                         0.38452481654391935,
+                         0,
+                         13,
+                         15)
+
+print("line 1 should read: 2 1278251.27")

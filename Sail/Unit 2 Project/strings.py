@@ -1,5 +1,4 @@
-def pretty_print_int(number: int) -> str:
-    return f"{number:,}"
+
 
 
 def pretty_print_dollars(number: float) -> str:
@@ -33,3 +32,7 @@ def make_line(length: int) -> str:
     end = "+"
     middle = "-" * length
     return end + middle + end
+
+
+def pretty_print_int(number: int) -> str:
+    return f"{number:,}"

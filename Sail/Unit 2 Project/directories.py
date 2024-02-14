@@ -21,9 +21,10 @@ def generate_dir_report(path, report_file_path):
 
         # Write main path to file (no indentation)
         file.write(formatted_main_path + "\n")
-
+        level = -1
         # Loop through each
         for root, dirs, files in sorted(os.walk(path)):
+
 
             # Calculate directory spacing
             dir_indent = get_path_depth(root) - main_path_depth - 1
@@ -34,15 +35,17 @@ def generate_dir_report(path, report_file_path):
             # print(f"directory indent spacing is {dir_indent}")
 
             # Format and record this directory to our output file
-            formatted_dir = " " * 2 * dir_indent + "|-+ " + os.path.basename(root)
-            print(formatted_dir)
-            file.write(formatted_dir + "\n")
+            if level > -1:
+                formatted_dir = " " * 2 * dir_indent + "|-+ " + os.path.basename(root)
+                print(formatted_dir)
+                file.write(formatted_dir + "\n")
 
             # For all files in this directory format filename and write to file
             for file_name in sorted(files):
                 formatted_file_name = " " * 2 * file_indent + "|-- " + file_name
                 print(formatted_file_name)
                 file.write(formatted_file_name + "\n")
+            level += 1
 
 
 generate_dir_report('data/dir-top', 'dir-report.txt')

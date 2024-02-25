@@ -1,25 +1,26 @@
-from typing import Iterable
+from typing import Collection
+
+# Supported containers:
+MAP = {
+    'list': list(),
+    'dict': dict(),
+    'set': set(),
+    'tuple': tuple()
+}
 
 
-def create_container(container_type: str) -> any:
+def create_container(container_type: str) -> Collection:
     """
-    Creates a container of the specificied type
-    :param: container_type: string to turn into a container type
+    Creates a container of the specified type
+    :param: container_type: string indicating which container type to return
+    :return: Iterable (List, Set, Dict or Tuple) based on the specified type
     """
-    
-    # Supported containers: 
-    map = {
-        'list': list(),
-        'dict': dict(), 
-        'set': set(), 
-        'tuple': tuple()
-    }
-    
     # Return relevant container
-    return map[container_type]
+    return MAP[container_type]
 
-def access_item(item: any,
-                container: Iterable) -> any:
+
+def access_item(item: int,
+                container: Collection) -> any:
     """
     Access an item in a container
 
@@ -28,13 +29,38 @@ def access_item(item: any,
     :returns: value or bool if the container is a set 
     """
 
+    # Collection is a Set() which does not support __getitem__
+    if isinstance(container, set):
+        # Return bool if the item is in the set
+        return item in container
+
+    # Collection must be a List, Tuple or Dict, return value at index/key
+    return container[item]
+
+
+def add_item(
+        item: any,
+        container: Collection,
+        position: int = None) -> Collection:
+
+    # Adds the item differently based on the container type
     match container:
-        case 'list':
-            # Element under the item index is returned:
-            
-        case 'dict':
-            pass
-        case 'set':
-            pass
-        case 'tuple': 
-            pass
+
+        case list():
+            # For type checking only
+            container: list
+
+            # Add the item to the end in this case
+            container.append(item)
+
+            # Add item completed
+            return container
+
+        case set():
+            container: set
+
+        case tuple():
+            container: tuple
+
+        case dict():
+            container: dict

@@ -1,4 +1,4 @@
-from typing import Collection
+from typing import Collection, Sequence
 
 # Supported containers:
 MAP = {
@@ -12,10 +12,9 @@ MAP = {
 def create_container(container_type: str) -> Collection:
     """
     Creates a container of the specified type
-    :param: container_type: string indicating which container type to return
-    :return: Iterable (List, Set, Dict or Tuple) based on the specified type
+    :param container_type: string indicating which container type to return
+    :return: Collection (List, Set, Dict or Tuple) based on the specified type
     """
-    # Return relevant container
     return MAP[container_type]
 
 
@@ -24,8 +23,8 @@ def access_item(item: int,
     """
     Access an item in a container
 
-    :param: item: index of ? element to be accessed 
-    :param: container: iterable which 
+    :param item: index of ? element to be accessed
+    :param container: collection to be accessed
     :returns: value or bool if the container is a set 
     """
 
@@ -35,6 +34,7 @@ def access_item(item: int,
         return item in container
 
     # Collection must be a List, Tuple or Dict, return value at index/key
+    container: Sequence
     return container[item]
 
 

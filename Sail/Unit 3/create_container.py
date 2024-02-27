@@ -41,14 +41,18 @@ def access_item(item: int,
 def add_item(
         item: any,
         container: Collection,
-        position: int = None) -> Collection:
-
+        position: int = None
+) -> Collection:
     # Adds the item differently based on the container type
     match container:
 
         case list():
             # For type checking only
             container: list
+
+            if position is not None:
+                container.insert(position, item)
+                return container
 
             # Add the item to the end in this case
             container.append(item)
@@ -59,8 +63,92 @@ def add_item(
         case set():
             container: set
 
+            # Add item to the end of set
+            container.add(item)
+
+            return container
+
         case tuple():
             container: tuple
 
+            new_container = list(container)
+
+            if position is not None:
+                new_container.insert(position, item)
+
+            else:
+                new_container.append(item)
+
+            container = tuple(new_container)
+
+            return container
+
         case dict():
             container: dict
+
+            if isinstance(item, tuple):
+                if len(item) == 2:
+                    container[item[0]] = item[1]
+                    return container
+
+            container[item] = None
+            return container
+
+
+def remove_item(
+        item: any,
+        container: Collection,
+        multi: bool = True
+) -> Collection:
+    # Removes the item differently based on the container type
+    match container:
+
+        case list():
+            container: list
+            occurrences = 0
+            for i in container:
+                if i == item:
+                    container.remove(i)
+                    occurrences += 1
+                if not multi and occurrences == 1:
+                    return container
+            return container
+
+        case dict():
+            container: dict
+            del container[item]
+            return container
+
+        case set():
+            container: set
+            container.remove(item)
+            return container
+
+        case tuple():
+            container: tuple
+            container = list(container)
+            container = remove_item(item, container, multi)
+            return tuple(container)
+
+
+def update_item(
+        orig_item: any,
+        new_item: any,
+        container: Collection,
+        multi: bool = True
+) -> Collection:
+
+    # Update item differently based on condition
+    match container:
+
+        case list():
+            container: list
+
+        case dict():
+            container: dict
+
+        case set():
+            container: set
+
+        case tuple():
+            container: tuple

@@ -28,7 +28,7 @@ def access_item(item: int,
     :returns: value or bool if the container is a set 
     """
 
-    # Collection is a Set() which does not support __getitem__
+    # container is a Set() which does not support __getitem__
     if isinstance(container, set):
         # Return bool if the item is in the set
         return item in container
@@ -40,7 +40,7 @@ def access_item(item: int,
 
 def add_item(
         item: any,
-        container: Union[list, dict, set, tuple],
+        container: list | dict | tuple | set,
         position: int = None
 ) -> Union[list, dict, set, tuple]:
     # Adds the item differently based on the container type

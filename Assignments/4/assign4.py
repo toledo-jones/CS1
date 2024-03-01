@@ -15,10 +15,6 @@ __version__ = "0.01a"
         Prompt for input of someone's phone number in 10 digit form (for example: 5188284181).
          If the input is not exactly 10 digits, continue to request the input again until the format is correct.
         
-        Capitalize only the first letters of each part of the name, and print out the revised name.
-        Print out the initials for that name.
-        Print out the name in the format of:  Lastname, Firstname, MI.  (for example:   Smith, John A.)
-        Print out the phone number with parentheses, a space, and a dash. For example: (518) 828-4181.
 
 """
 
@@ -58,9 +54,8 @@ def display(
     :param phone_number: string, ten-digit phone number
     :return: None
     """
-    pass
 
-    def get_full_name(_names: list[str]) -> str:
+    def convert_full_name(_names: list[str]) -> str:
         """
         Convert from list of strings to properly formatted name
 
@@ -75,7 +70,7 @@ def display(
 
     print()
     print("You entered:", end=' ')
-    print(get_full_name(names))
+    print(convert_full_name(names))
 
     print()
     print("Your initials are:", end=' ')
@@ -167,6 +162,7 @@ def get_phone_number() -> str:
 def get_initials(names: list[str]) -> str:
     """
     Retrieve initials from a list of names [first, middle, last]
+
     :param names: list of names [first, middle, last]
     :return: string containing only the capitalized initials: "CPB"
     """
@@ -192,7 +188,7 @@ def parse_name(name: str) -> list[str]:
     :return: List of strings [first, middle, last]
     """
 
-    # Remove excess whitespace around name ends a beginning
+    # Remove excess whitespace around name ends and beginning
     name = name.strip()
 
     # Lowercase every character in the name string
